@@ -1,0 +1,352 @@
+		====================================
+				Video 18
+		====================================
+==================
+Application Types
+==================
+
+Stand-alone application : Which runs only in one computer and only one user can access
+
+	Ex: Calculator, Note Pad, Paint etc..
+
+Web application : Multiple users can access this web application at a time
+
+	Ex: facebook, gmail, google meet etc..
+
+Java Stand-alone app : jar file
+
+Java web app : war file
+
+============================
+Java Project Execution Flow
+============================
+
+-> Java is a programming language developed by Sun Microsystem
+
+	Note: Java is under licence of oracle
+
+-> Java is free and Open source software
+
+-> Using Java we can develop software projects
+
+-> Developers will write Source code ( .java files )
+
+-> We need to convert source code into byete code ( .class files )
+
+			     compilation
+		.java file ---------------> .class file
+
+-> We need to package project .class files as jar / war file
+
+
+
+======================
+What is Dependency ?
+======================
+
+-> Dependency nothing a framework/library that is required for our project development
+
+
+	Ex: Junit, Spring, Hibernate, Kafka, Redis etc.....
+
+======================
+Project Build Process
+=====================
+
+1) Download Required Dependencies (Ex: spring, hibernate, junit)
+
+2) Add depenencies to project build path ( build path setup )
+
+3) Compile project source code
+
+4) Execute Unit Test cases (Junits)
+
+5) Package project as jar file or war file
+
+
+=> Instead of doing manual build process we can automate it using Build Tools.
+
+=====================
+What is Build Tool ?
+====================
+
+=> Build Tools are used to automate project build process
+
+=> We have several build tools in the market
+
+	Ex: Ant, Maven, Gradle, MS Build etc....
+
+================
+What is Maven ?
+================
+
+=> Maven is a build tool which is used to automate project build process
+
+=> Maven is free and open source software
+
+=> Maven developed by Apache Organization
+
+=> Maven developed using Java language
+
+=> Maven is used only for Java Projects Build automation.
+
+
+Note: To use maven, java software is mandatory.
+
+===========================
+Maven Setup In Windows OS
+===========================
+
+1) Download and install Java software
+	
+	(https://www.oracle.com/in/java/technologies/downloads/#jdk17-windows)
+
+2) Set JAVA_HOME in environment variables
+
+	JAVA_HOME = C:\Program Files\Java\jdk-17
+
+3) Set Path for JAVA in environment variables
+
+	Path = C:\Program Files\Java\jdk-17\bin
+
+4) Verify Java installation in cmd
+
+	$ java -version
+
+5) Download Maven Software as zip and extract it
+
+	(https://maven.apache.org/download.cgi)
+
+6) Set MAVEN_HOME in environment variables
+
+	MAVEN_HOME = C:\apache-maven-3.9.3
+
+7) Set Maven Path in Environment Variables
+
+	Path = C:\apache-maven-3.9.3\bin
+
+8) Verify Maven installation in cmd
+
+	$ mvn -version
+
+
+===========================
+Maven Setup In Linux OS
+===========================
+
+# Amazon linux
+$ sudo yum install maven
+
+# Ubuntu
+$ sudo apt install maven
+
+		====================================
+				Video 19
+		====================================
+
+==================
+Maven Terminoloy
+=================
+
+1) Arche Type
+2) Group ID
+3) Artifact ID
+4) Version
+5) Packaging
+6) pom.xml
+7) Maven Goals
+8) Maven Plugins
+9) Maven Dependencies
+10) Maven Repositories
+
+
+=> Archetype represents project template
+
+		quick-start : Stand-alone app (jar file)
+		web-app : Web app (war file)
+
+Note: Maven supports 1500+ archetypes
+
+
+=> Group ID represents which company developing the project
+
+	groupId : com.tcs, com.ibm, in.ashokit
+
+
+=> Artifact ID represents project name
+
+	artifactId : passport-web-app, sbi-credit-card-app, irctc-web-app
+
+
+=> Version represents project release number
+
+	version : 0.0.1-SNAPSHOT (under development)
+
+		  1.0-RELEASE (DELIVERED TO Client)
+
+=> Packaging type represents what is project packaging format
+
+	stand-alone app : jar 
+	web-app : war
+
+
+=> pom.xml file (Project Object Model) - It is maven configuration file
+	 
+   	(project dependencies we will configure in pom.xml)
+
+
+=> Maven Goals are used to perform project build process
+
+	Ex: clean, compile, test, package and install
+
+=> Maven Plugins will perform action when we execute maven goal. Every Maven goal is having a plugin.
+
+
+=> Maven dependencies are nothing but libraries we want to use in the project development 		(Ex: spring, hibernate, junit)
+
+
+=> Maven Repositories will maintain libraries
+
+		(Central Repo, Local Repo, Remote Repo (nexus / jfrog) )
+
+
+=========================================
+Create Maven Project Using Quick Start
+=========================================
+
+-> Create One folder(Maven-Practice)
+
+-> Open cmd from Maven-Practice folder
+
+-> Execute below command in cmd
+
+mvn archetype:generate -DgroupId=in.ashokit -DartifactId=passport-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4
+
+
+-> Go inside the project folder and execute maven goals
+
+	$ cd <project-folder-name>
+
+	$ mvn clean compile
+
+============
+Maven Goals
+===========
+
+clean : To delete target folder
+
+compile : To compile source code of the project (target folder will be created)
+
+test : To execute junits of the project
+
+	test = compile + test
+
+package : To package project as jar or war (packaged file will store in target folder)
+
+	package = compile + test + package
+
+install : To install project package file in maven repository
+
+	install = compile + test + package + install
+
+
+
+
+======================================
+Creating web application using maven
+=====================================
+>> mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp -DgroupId=in.ashokit -DartifactId=amazon_app -DinteractiveMode=false
+
+
+====================
+Maven Dependencies 
+====================
+
+=> The libraries that are required for our project development are called as dependencies
+
+	Ex: spring, hibernate, junit etc...
+
+
+=> We can find maven dependencies in www.mvnrepository.com website
+
+=> Below is the example for maven dependency
+
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    <version>6.0.10</version>
+</dependency>
+
+Note: Add the above dependency in project pom.xml file and execute maven package goal.
+
+
+Note: When we add dependency, maven will download dependency from Maven Repository.
+
+===========================
+What is Maven Repository ?
+===========================
+
+=> Maven Repository is a place where maven dependencies will be available / stored.
+
+=> Maven supports 3 types of repositories
+
+	1) Central Repository (Apache Org will maintain this)
+
+	2) Remote Repository (Every company will maintain their own remote repo - Nexus/JFrog)
+
+	3) Local Repository (It will be available in our system)
+
+
+Maven Local Repository Location : C:\Users\<uname>\.m2\repository
+
+
+Note: When we execute maven goals, maven will check for depenendencies in local repo.
+
+=> If dependency available in local repo then maven will take it from local repo.
+
+=> If dependency not available in local repo then maven will download it from central / remote repo.
+
+
+Note: By default maven will connect with central repo. If we want to connect with Remote Repository we need to use Nexus/Jfrog.
+
+
+====================
+Maven Class Summary
+====================
+
+1) What is Java ?
+
+2) Application Types ( Stand-alone Vs Web )
+
+3) Java Project Execution Flow ( source code ---> byte code --> package --> jar / war )
+
+4) What is Project Dependency ?
+
+5) What is Build Process ?
+
+6) What is Build Tool
+
+7) What are build tools available 
+
+8) What is Maven 
+
+9) Maven Setup in Windows Machine
+
+10) Verify Maven installation
+
+11) Maven Project Creation (Stand-Alone)
+
+12) Maven Web Application Creation
+
+13) Maven Terminology
+
+14) Maven Goals
+
+15) Adding Maven Dependency in pom.xml
+
+16) Maven Repositories
+
+
+
+
+

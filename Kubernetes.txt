@@ -1,0 +1,1046 @@
+=============
+Kubernetes
+==============
+
+=> Open source orchestration platform
+
+=> K8S is used to manage our containers
+
+=> K8S provided a framework to handle containers related tasks
+	(deployment, scaling, load balancing etc....)
+
+=> K8S developed by Google and donated to CNCF
+
+===============
+K8S Advantages
+===============
+
+1) Container Orchestration
+
+2) Auto Scaling
+
+3) Self Healing
+
+4) Load Balancing
+
+==================
+K8S Architecture
+==================
+
+=> K8S will follow cluster architecture (group of servers)
+
+		=> Master Node / Control Plane
+		=> Woker Nodes
+
+=> K8S control plane will contain below components
+
+	1) API Server
+	2) Schedular
+	3) Controller Manager
+	4) ETCD
+
+=> K8S worker node will container below components
+
+	1) POD
+	2) Containers
+	3) Docker Engine
+	4) Kublet
+	5) Kube Proxy
+
+=> To communicate with K8S control plane we have 2 options
+
+	1) UI (Web Dashboard)
+
+	2) Kubectl (CLI)
+
+
+==============================
+K8S Architecture Components
+==============================
+
+=> API Server will recieve incoming requests and it will store into ETCD.
+
+=> ETCD is k8s cluster database
+
+=> Schedular will check pending tasks in ETCD and it will schedule those task in worker nodes.
+
+=> Schedular will get available workers nodes information by using kubelet.
+
+=> Kubelet is called as Worker node agent.
+
+=> Kube-Proxy provides network for cluster communication
+
+=> POD is a smallet building block that we run in kubernetes cluster. POD represents runtime instance of our application.
+
+Note: In k8s, our project  will be excuted as a POD. Inside POD containers will be created.
+
+=> Controller-Manager will monitor all k8s resources functionality.
+
+
+
+### EKS Cluster Setup DOC : https://github.com/ashokitschool/DevOps-Documents/blob/main/EKS-Setup.md
+
+===================================
+Kubernete Cluster Core Components
+===================================
+
+1) Control Plane
+
+	1.1) API Server
+	1.2) Schedular
+	1.3) Controller - Manager
+	1.4) ETCD
+
+2) Worker Node
+
+	2.1) Kubelet
+	2.2) Kube-Proxy
+	2.3) Docker Engine
+	2.4) Container
+	2.5) POD
+
+
+=====================
+Kubernetes Resources
+=====================
+
+1) PODS
+2) Services
+3) Namespaces
+4) Replication Controller
+5) Replica Set
+6) DaemonSet
+7) Deployment
+8) StatefulSet
+9) IngressController
+10) HPA
+11) Helm Charts
+
+
+===============
+What is POD ?
+===============
+
+=> POD is a smallest building block that we can deploy in k8s cluster
+=> Our application will be deployed in k8s cluster as a POD only
+=> For one application we can create multiple POD replicas for high availability
+=> For every POD one IP address will be generated.
+=> If POD got damaged/crashed then K8S will replace it (Self-healing)
+=> To create PODS we will use MANIFEST YML files
+
+Note: By default PODS are accessible only with in the cluster (we can't access outside)
+
+=> To expose PODS for outside access we need to use K8S services concept.
+
+==========================
+What is Service in K8S ?
+==========================
+
+=> K8S service is used to expose PODS
+
+=> We have 3 types of services
+
+1) Cluster IP (To access PODS with in cluster)
+2) Node Port (To access PODS using NODE Public IP)
+3) Load Balancer (To distribute the traffic to pod replicas)
+
+
+============================
+What is Namespace in k8S ?
+============================
+
+=> Namespace is used to group our resources in cluster
+
+Ex: frontend pods in one namespace, backend pods in one namespace, db pods in one namespace.
+
+Note: When we delete a namespace all its resources will be deleted.
+
+
+
+1) What is Orchestration
+2) What is Kubernetes (K8S)
+3) K8S Advantages
+4) K8S Architecture
+5) K8S cluster components
+6) AWS EKS Cluster Setup
+7) What is POD
+8) What is Service
+9) Namespace
+
+========
+YML
+========
+
+=> YML stands for YET Another Markup language
+
+=> YML files are both human and machine readable
+
+=> YML files will have .yml/yaml extension
+
+	Official Website : https://yaml.org/
+
+=> In K8S we will use YML files for manifest configuration.
+
+
+================
+Sample YML file
+================
+
+id: 101
+name: Ashok
+email: ashok@in.com
+
+Note: To write YML files we can use VS Code IDE.
+
+
+
+1) Download and install VS Code IDE
+2) Open VS Code IDE and install YAML extension plugin
+3) Create 'YML-Practice' folder and open it from VS Code IDE.
+
+---
+id: 101
+name: ashok
+gender: male
+hobbies:
+  - cricket
+  - chess
+  - music
+address:
+ city: hyd
+ state: TG
+ country: India
+employment:
+ company: TCS
+ pkg: 20 LPA
+...
+
+
+
+
+==============
+What is POD ?
+==============
+
+=> POD is a smallest building block we can deploy in k8s cluster
+
+=> In k8s, every container will be created inside POD only
+
+=> POD always runs inside the Node
+
+=> POD represents running process
+
+=> We can create multiple pods in single node
+
+=> Every POD will have unique IP address
+
+=> To create PODS we will use Manifest YML
+
+=========================
+K8S Manifest YML syntax
+=========================
+
+---
+apiVersion: 
+kind: 
+metadata:
+spec:
+...
+
+=====================
+K8S POD Manifest YML
+=====================
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+ name: javawebapppod
+ labels:
+  app: javawebapp
+spec:
+ containers:
+ - name: javawebappcontainer
+   image: ashokit/javawebapp
+   ports:
+   - containerPort: 8080
+...
+
+# check pods in k8s cluster
+$ kubectl get pods
+
+# Create PODS using manifest yml
+$ kubectl apply -f <manifest-yml-file>
+
+# Describe POD
+$ kubectl describe pod <pod-name>
+
+# Get POD running on which worker node
+$ kubectl get pods -o wide
+
+$ Get POD Logs
+$ kubectl logs <pod-name>
+
+
+Note: We can't access our pods ouside directley. We need to expose our pods using K8S service concept.
+
+==============
+K8S Services
+==============
+
+=> Service is used to expose k8s pods
+
+=> We have 3 types of services in K8S
+
+1) Cluster IP
+
+2) Node Port
+
+3) Load Balancer
+
+
+============
+Cluster IP
+============
+
+=> When we create PODS, every POD will get unique IP address
+
+=> We can access PODS inside cluster using POD IP Address
+
+
+Notes: PODS are short lived objects, when POD is re-created then its IP address will be changed hence we shouldn't dependent on POD IP to access it.
+
+=> To expose PODS inside the cluster with Fixed IP address then we can use Cluster IP service.
+
+=> Cluster IP service will generate one IP address for the pods to access inside cluster.
+
+Note: Cluster IP will not be changed even if PODS are re-created.
+
+=> To expose pods using service we will create k8s manifest YML like below
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: javawebsvc
+spec:
+ type: ClusterIP
+ selector:
+  app: javawebapp #POD label
+ ports:
+  - port: 80
+  targetPort: 8080
+...
+
+# Check k8s services running
+$ kubectl get service
+
+# Create K8S service
+$ kubectl apply -f <manifest-yml>
+
+# Delete all pods & Nodes
+$ kubectl delete all --all
+
+===========================
+What is NodePort service ?
+===========================
+
+=> Node Port service is used to expose PODS outside cluster also
+
+=> When we expose our PODS using NodePort then we can access our pods using Worker Node Public IP in which our POD is running.
+
+	URL To Access: http://worker-node-public-ip:node-port/app-name/
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: javawebsvc
+spec:
+ type: NodePort
+ selector:
+  app: javawebapp #POD label
+ ports:
+  - port: 80
+  targetPort: 8080
+  nodePort: 30070
+...
+
+Note: In the above service manifest file giving nodePort is optional. If we don't give nodePort then k8s will assign random node port number.
+
+	Node Port Range : 30000 - 32767
+
+
+######  Note: We need to enable nodePort number in security group inbound rules. ##########
+
+===============================================
+Combining POD & Service Manifest in single yml
+===============================================
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+ name: javawebapppod
+ labels:
+  app: javawebapp
+spec:
+ containers:
+ - name: javawebappcontainer
+   image: ashokit/javawebapp
+   ports:
+   - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: javawebsvc
+spec:
+  type: NodePort
+  selector:
+   app: javawebapp
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 30070
+...
+
+# create pod & service
+$ kubectl apply -f <yml-file>
+
+# check pods
+$ kubectl get pods
+
+# check service
+$ kubectl get svc
+
+# check pod running worker node
+$ kubectl get pods -o wide
+
+# Enable 30070 in worker node security group
+
+# Access application using below URL
+
+	URL  : http://worker-node-public-ip:30070/java-web-app/
+
+# After practice delete all resources we have created
+
+$ kubectl delete all --all
+
+=================================
+What is Load Balancer Service ?
+=================================
+
+=> It is used to expose our pods outside cluster
+
+=> When we use Load Balancer service, then one LBR will be created in AWS cloud.
+
+=> Using LBR DNS URL we can access our application.
+
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+ name: javawebapppod
+ labels:
+  app: javawebapp
+spec:
+ containers:
+ - name: javawebappcontainer
+   image: ashokit/javawebapp
+   ports:
+   - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: javawebsvc
+spec:
+  type: LoadBalancer
+  selector:
+   app: javawebapp
+  ports:
+  - port: 80
+    targetPort: 8080
+...
+
+$ kubectl apply -f <yml>
+
+$ kubectl get pods
+
+$ kubectl get svc
+
+App URL : lbr-dns-name/java-web-app/
+
+================
+K8s Namespaces
+================
+
+=> k8s namespaces are equal to packages in java
+
+=> Namespaces are used to group our k8s resources logically
+
+	frontend-app-pods => as one group
+
+	backend-app-pods => as one group	
+
+	database-pods => as one group
+
+=> We can create multiple namespaces in k8s cluster
+
+	ex: ashokit-app-ns, sbi-app-ns, insta-app-ns etc...
+
+=> Namespaces are isolated with each other.
+
+
+Note: When we delete a namespace all the resources which are created under that namespace also gets deleted.
+
+
+# Get namespaces available in k8s
+$ kubectl get ns
+
+=> We will have below namespaces by default in k8s cluster
+
+default  
+kube-node-lease  
+kube-public     
+kube-system 
+
+=> When we create any k8s resource without using namespace then k8s will choose default namespace.
+
+# Get all k8s resources
+$ kubectl get all
+
+# Get k8s components of particular namespace
+
+$ kubectl get all -n <namespace>
+
+#### It is highly recommended to create our k8s resources using custom namespace ####
+
+# Create namespace
+$ kubectl create ns <namespace-name>
+
+=> We can create k8s namespace using manifest yml also
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+ name: ashokit-ui-ns
+...
+
+$ kubectl apply -f <yml>
+
+
+=================================================
+Creating POD & Service Using Custom Namespace
+=================================================
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+ name: ashokitns
+---
+apiVersion: v1
+kind: Pod
+metadata:
+ name: javawebapppod
+ labels:
+  app: javawebapp
+ namespace: ashokitns
+spec:
+ containers:
+  - name: javawebappcontainer
+    image: ashokit/javawebapp
+    ports:
+     - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: javawebappsvc
+ namespace: ashokitns
+spec:
+ type: LoadBalancer
+ selector:
+  app: javawebapp
+ ports:
+  - port: 80
+    targetPort: 8080
+...
+
+
+============
+1) PODS
+2) Services
+3) Namespace
+=============
+
+=> As of now we have created PODS manually using POD Manifest YML.
+
+=> If we delete POD, k8s not recreating pod hence our appilcation will go down
+
+# Delete POD
+$ kubectl delete pod <pod-name> -n <namespace>
+
+# Get pods
+$ kubectl get pods -n <namespace>
+
+Note: After deletion, pod is not recreated because we have created POD manually hence we lost self-healing capability.
+
+############################ We should n't create PODS manually ########################
+
+=> Kubernetes provided resources to create pods.
+
+-> It is highly recommended to create pods using k8s resources
+
+1) ReplicationController
+2) ReplicaSet
+3) Deployment
+4) StatefulSet
+5) DaemonSet
+
+=============================
+Replication Controller (RC)
+=============================
+
+=> Replication Controller (RC) is a k8s resource which is used to create pods.
+
+=> It will make sure always given no.of pods are running for our application.
+
+=> RC will take care of POD lifecycle
+
+Note: When POD is crashed/damaged/deleted then RC will create new pod.
+
+=> By using RC we can scale up/down our pods.
+
+
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+ name: javawebrc
+spec:
+ replicas: 2
+ selector:
+  app: javawebapp
+ template:
+  metadata:
+   name: javawebapppod
+   labels:
+    app: javawebapp
+  spec:
+    containers:
+      - name : javawebappcontainer
+        image: ashokit/javawebapp
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: javawebsvc
+spec:
+ type: LoadBalancer
+ selector:
+  app: javawebapp
+ ports:
+ - port: 80
+   targetPort: 8080
+...
+
+$ kubectl delete all --all
+
+$ kubectl apply -f rc.yml
+
+$ kubectl get all
+
+$ kubectl get pods
+
+$ kubectl get pods -o wide
+
+$ kubectl delete pod <pod-name>
+
+$ kubectl get pods
+
+$ kubectl scale rc javawebrc --replicas 5
+
+$ kubectl get pods
+
+$ kubectl logs <pod-name>
+
+$ kubectl delete all --all
+
+
+==================
+ReplicaSet (RS)
+==================
+
+=> ReplicaSet is replacement for ReplicationController
+
+=> ReplicaSet also will manage POD lifecycle
+
+=> ReplicaSet also will maintain given no.of pods count always
+
+=> We can scale up and scale down pods using ReplicaSet as well
+
+## The difference between RC and RS is "SELECTOR" ##
+
+=> ReplicationController supports Equlity Based Selector
+
+        selector:
+          app: javawebapp
+
+=> ReplicaSet supports set based selector
+
+        selector:
+          matchLabels:
+            app: javawebapp
+            version: v1
+            color: blue
+
+
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+ name: javawebrs
+spec:
+ replicas: 2
+ selector:
+  matchLabels:
+    app: javawebappp
+ template:
+  metadata:
+   name: javawebapppod
+   labels:
+    app: javawebapp
+  spec:
+    containers:
+      - name : javawebappcontainer
+        image: ashokit/javawebapp
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: javawebsvc
+spec:
+ type: NodePort
+ selector:
+  app: javawebapp
+ ports:
+ - port: 80
+   targetPort: 8080
+   nodePort: 30785
+...
+
+$ kubectl apply -f <yml>
+
+$ kubectl get pods
+
+$ kubectl get svc
+
+$ kubectl get rs
+
+$ kubectl scale rs javawebrs --replicas 5
+
+$ kubectl get pods
+
+=================
+K8S Deployment
+=================
+
+=> Deployment is one of the K8S Resource / Component
+
+=> Deployment is the most recommended approach to deploy our applications in K8S cluster.
+
+=> Using Deployment we can scale up and scale down our pods
+
+=> Deployment supports Rolling Updates and Rollbacks.
+
+=> We can deploy latest code with Zero Down Time
+
+
+1) Zero Downtime
+2) Rolling Updates & Rollback
+3) Auto Scaling
+
+======================
+Deployment Strategies
+======================
+
+=> We have below deployment strategies in k8s 
+
+a) ReCreate
+b) Rolling Update (default)
+c) Canary
+
+=> ReCreate means it will delete all the existing pods and it will create new pods (app downtime will be there)
+
+=> RollingUpdate means it will delete the pods and create the pods one by one
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: javawebappdeployment
+spec:
+ replicas: 2
+ strategy:
+  type: RollingUpdate
+ selector:
+   matchLabels:
+    app: javawebapp
+ template:
+  metadata:
+   name: javawebapppod
+   labels:
+     app: javawebapp
+  spec:
+    containers:
+    - name: javawebappcontainer
+      image: ashokit/javawebapp
+      ports:
+      - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: javawebappsvc
+spec:
+ type: NodePort
+ selector:
+  app: javawebapp
+ ports:
+ - port: 80
+   targetPort: 8080
+   nodePort: 30785
+...
+
+
+
+=========================
+Blue - Green Deployment
+=========================
+
+=> It is one of the most famous application release model
+
+=> It reduces risk and minimizes downtime of the application
+
+=> It will maintain two environments named as blue and green
+
+=> Old version is called as blue environment
+
+=> Lastest version is called as green environment
+
+
+=> Existing application will run in blue pods and live service will expose blue pods for end users access
+
+=> Latest application will deploy as green pods. Once green pods functionality tested then we will divert traffic from blue pods to green pods by changing live sevice pod selector.
+
+
+
+1) blue-pods-deployment.yml
+2) live-service.yml
+
+3) green-pods-deployment.yml
+4) pre-prod-service.yml
+
+Java Maven Web App :: https://github.com/ashokitschool/maven-web-app.git
+
+Step-0 :: Clone K8S Manifest YML Files
+
+   Git Repo : https://github.com/ashokitschool/kubernetes_manifest_yml_files.git
+
+Step-1:: Create blue deployment
+
+Step-2 :: Create Live service to expose blue pods (version: v1)
+
+### Live Service URL :: http://node-ip:30785/java-web-app/
+
+Step-3 :: Modify code in git repo + Build Project + Build Docker Image + Push Docker Image to Docker Hub
+
+Step-4 :: Create Green Deployment
+
+Step-5 :: Create Pre-Prod Service
+
+## Pre-Prod Service URL :: http://node-ip:31785/java-web-app/
+
+=======================
+Config Map & Secrets
+=======================
+
+=> Every application will have several environments for testing purpose
+
+    a) DEV Env   (Developers Testing)
+    b) SIT Env   (Testing Team)
+    c) UAT       (Client Side Testing)
+    d) PILOT     (Pre-Prod Testing)
+
+=> Once testing completed in all above environments then only application will be deployed in PROD environment.
+
+=> For every environment, application properties will be different
+
+    a) Database properties
+    b) Kafka properites
+    c) SMTP properties
+    d) Redis properties
+
+Note: We shouldn't hard code these properties in our application.
+
+=> Using ConfigMap & Secret we can pass environment specific properties for our application dynamically.
+
+=> ConfigMap & Secret concepts are used to avoid hard coded properties in our application.
+
+=> We can make our application loosely coupled from environment specific properties using ConfigMap & Secret.
+
+=> ConfigMap & Secret will represent data in key-value format
+
+=> ConfigMap is used to store non-confidential data & secret is used to store confidential data like passwords, pin, security codes etc..
+
+
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: db-config-map
+ labels:
+  storage: ashokit-db-storage
+spec:
+ data:
+   DB_DRIVER_CLASS_NAME_VALUE: com.mysql.cj.jdbc.Driver
+   DB_SERVICE_NAME_VALUE: ashokit-db-service
+   DB_SCHEMA_VALUE: ashokit-app
+   DB_PORT_VALUe: 3306
+...
+
+$ kubectl apply -f <config-map-yml>
+$ kubectl get configmap
+
+
+---
+apiVersion: v1 
+kind: Secret
+metadata: 
+ name: ashokit-secret
+ labels: 
+   secret: ashokit-config-secret
+spec:
+  data: 
+    DB_USERNAME: YXNob2tpdA==
+    DB_PASSWORD: YXNob2tpdA==
+    type: Opque
+...
+
+$ kubectl apply -f <secret-yml>
+$ kubectl get secret
+
+=============================
+Reading Data from ConfigMap
+=============================
+
+-name: DB_DRIVER_CLASS  
+ valueFrom: 
+  configMapKeyRef:
+   name: db-config-map
+   key: DB_DRIVER_CLASS_NAME_VALUE
+
+=========================
+Reading data from Secret
+=========================
+
+-name: DB_PASSWORD 
+ valueFrom:
+  secretKeyRef:
+    name: ashokit-secret
+    key: DB_PASSWORD
+
+
+
+ 
+1) PODS
+2) Services
+3) Namespaces
+4) ReplicationController
+5) ReplicaSet
+6) Deployment
+7) Blue-Green Deployment Model
+8) ConfigMap
+9) Secret
+10) Spring Boot + MySQL - K8S Deployment
+
+
+
+StatefulSet : To create PODS with stateful behaviour
+
+DaemonSet: To create pod in each worker node
+
+Ex: metric server, log collector etc...
+
+
+==========================
+Logs Monitoring
+===========================
+
+=> In realtime our application will be executed in multiple PODS
+
+=> When some problem occured in application execution then we have to check logs of the application
+
+=> To check logs we will use below command in k8s 
+
+	$ kubectl logs <pod-name>
+
+
+Note: If we have 1 or 2 pods then easily we can check logs. What if we have 100 pods... checking 100 pods logs to identify the issue is very difficult.
+
+=> To overcome this problem we will setup Log Aggregation in K8S cluster.
+
+===========
+EFK Stack
+===========
+
+E - Elastic Search
+
+F - FluentD
+
+K - Kibana
+
+=> Above 3 are open source products which are used to perform log aggregation in the project.
+
+1) Deploy one application using Deployment manifest
+
+	App Docker Image : ashokit/sb-logger-app
+
+2) Expose application using k8S Service (LBR)
+
+3) Deploy ElasticSearh PODS using StatefulSet
+
+4) Deploy FluentD using DaemonSet
+
+5) Deploy Kibana and expose as LBR service
+
+6) Access Kibana dashboard and setup index pattern to get logs
+
+7) Access application logs in kibana dashboard.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

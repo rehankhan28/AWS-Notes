@@ -163,7 +163,7 @@ Integrate Sonar server with Java Maven App
 -> Configure Sonar Properties under <properties/> tag in "pom.xml"
 
   <properties>
-	<sonar.host.url>http://3.111.34.121:9000/</sonar.host.url>
+	<sonar.host.url>http://47.128.220.167:9000/</sonar.host.url>
 	<sonar.login>admin</sonar.login>
 	<sonar.password>admin</sonar.password>
   </properties>

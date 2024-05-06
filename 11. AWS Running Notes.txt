@@ -78,15 +78,12 @@ What is AWS
 
 -> Having Global infrastructure
 
-
 =================
 Regions & AZ's
 =================
-
 Region -> Geographical location (32 regions)
 
 Availability Zone -> Data Center (server room) -> 102 Az's
-
 ==================
 AWS Account Setup
 ==================
@@ -141,8 +138,6 @@ AWS Services Overview
 
 18) Dynamo DB : No-SQL database
 
-
-
 ==========================================
 How to create infrastrucutre in aws cloud
 ==========================================
@@ -154,8 +149,6 @@ How to create infrastrucutre in aws cloud
 3) Cloud Formation (YML / JSON)
 
 4) Terraform (supports multiple clouds)
-
-
 =================================
 AWS S3 (Simple Storage Service)
 =================================

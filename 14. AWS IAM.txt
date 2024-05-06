@@ -1,4 +1,3 @@
-
 ====================================
 IAM : Identity & Access Management
 ====================================
@@ -71,13 +70,11 @@ IAM Account
 =================
 IAM User Group
 =================
-
 1) Create User Group 
 
 2) Attach Policies to group
 
 3) Add Users to group
-
 
 =====================
 Create Custom Policy
@@ -91,7 +88,6 @@ Create IAM role
 =================
 
 1) Create IAM role and attach to ec2 vm
-
 
 ===============
 IAM Summary

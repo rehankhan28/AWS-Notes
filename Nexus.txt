@@ -1,6 +1,3 @@
-		####################################
-				Video 22
-		####################################
 ##################
 Sonatype Nexus
 ##################
@@ -275,19 +272,3 @@ Nexus Summary
 7) How to upload Shared Libraries into remote repository
 
 8) How to configure remote repository in pom.xml file
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

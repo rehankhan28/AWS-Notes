@@ -103,7 +103,7 @@ git help <cmd-name> : It will open documentation for given command
 Configure Your Email and Name in Git Bash with Commands
 ==================================================
 
-$ git config --global user.email "rehankhan.88c@gmail.com"
+$ git config --global user.email "email@example.com"
 
 $ git config --global user.name "name"
 

@@ -168,9 +168,3 @@ Spring Boot App with AWS RDS DB
 #################################
 
 URL : https://youtu.be/GSu1g9jvFhY
-
-
-
-
-
-

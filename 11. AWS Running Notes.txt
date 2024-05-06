@@ -1,9 +1,7 @@
 ===========
 AWS Cloud
 ===========
-
 Pre-Requisites : Linux Basics
-
 ================
 Course Content
 ================
